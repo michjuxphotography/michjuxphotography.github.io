@@ -1,0 +1,121 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    font-family: Montserrat;
+    font-style: italic;
+    -webkit-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
+    box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
+}
+
+.logo{
+    color: #121212;
+    font-size: 25px;
+    letter-spacing: 5px;
+    background: #121FCF;
+    background: linear-gradient(to right, #121FCF 0%, #22A7CF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+.nav-links li{
+    list-style: none;
+}
+.nav-links a{
+    color: #121212; 
+    text-decoration: none;
+    letter-spacing: 3px;
+}
+
+.burger div{
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    background-color: #121212;
+    transition: all 0.3s ease;
+}
+
+.burger{
+    display: none;
+}
+
+@media screen and (max-width:980px){
+    body{
+        overflow-x: hidden;
+    }
+    .nav-links{
+        position: absolute;
+        right: 0px;
+        height: 92vh;
+        top: 8vh;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+    }
+    .nav-links li{
+        opacity: 0;
+    }
+    .burger{
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.nav-active{
+    transform: translateX(0%);
+}
+
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes navLinkFadeReverse {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+}
+
+@media screen and (max-width:980px){
+    .logo{
+        font-size: 15px;
+    }
+}
+
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2{
+    opacity: 0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+}
