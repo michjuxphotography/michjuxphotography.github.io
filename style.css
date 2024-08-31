@@ -306,3 +306,10 @@ h3 {
     padding-top: 5vh;
     color: white;
 }
+@media screen and (max-width:980px){
+    .port:hover, .prod:hover {
+        font-size: 25px;
+        letter-spacing: 5px;
+        transition: transform 0.2s ease-in;
+    }
+}
