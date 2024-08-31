@@ -18,6 +18,7 @@ nav{
     -webkit-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
     -moz-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
     box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
+    z-index: 10;
 }
 
 .logo{
@@ -82,6 +83,7 @@ nav{
         width: 50%;
         transform: translateX(100%);
         transition: transform 0.5s ease-in;
+        z-index: 1;
     }
     .nav-links li{
         opacity: 0;
@@ -122,11 +124,11 @@ nav{
     }
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0px);
     }
 }
 
-@keyframes navLinkFadeReverse {
+/* @keyframes navLinkFadeReverse {
     from {
         opacity: 1;
         transform: translateX(0);
@@ -135,7 +137,7 @@ nav{
         opacity: 0;
         transform: translateX(50px);
     }
-}
+} */
 
 @media screen and (max-width:980px){
     .logo{
@@ -247,11 +249,11 @@ h2{
     transform: rotate(45deg) translate(-5px,-6px);
 }
 
-.choice{
+.choice {
     display: flex;
     justify-content: space-around;
 }
-.choice div{
+.choice div {
     padding-top: 42vh;
     padding-bottom: 48vh;
     width: 50vw;
@@ -261,25 +263,27 @@ h2{
     font-weight: 600;
     font-style: italic;
     letter-spacing: 3px;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
-.port{
-    background: rgb(85,27,212);
+.port {
     background: linear-gradient(79deg, rgba(85,27,212,1) 0%, rgba(245,133,41,1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    border-right: 1px double #e2e2e2;
 }
-.prod{
-    background: rgb(26,190,208);
+.prod {
     background: linear-gradient(270deg, rgba(26,190,208,1) 0%, rgba(25,196,78,1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    border-left: 1px double #e2e2e2;
 }
-.choice:hover{
+.choice:hover {
     cursor: pointer;
 }
-.port:hover{
-    font-size: 30px;
-    letter-spacing: 5px;
-    transition: transform 0.2s ease-in;
-}
-.prod:hover{
-    font-size: 30px;
+.port:hover, .prod:hover {
+    font-size: 50px;
     letter-spacing: 5px;
     transition: transform 0.2s ease-in;
 }
@@ -287,15 +291,18 @@ h2{
     display: inline-block;
     transition: all .2s ease-in-out;
     text-decoration: none;
-    color: white;
-    
-  }
-.headerText:hover {
-    transform: scale(2.1);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
 }
-h3{
+/* .headerText:hover {
+    transform: scale(2.1);
+    
+} */
+h3 {
     font-family: Montserrat;
     display: flex;
     justify-content: center;
     padding-top: 5vh;
+    color: white;
 }
