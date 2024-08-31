@@ -3,6 +3,10 @@
     padding: 0px;
     box-sizing: border-box;
 }
+html, body {
+    width: 100vw;
+    overflow-x: hidden;
+}
 
 nav{
     display: flex;
@@ -39,6 +43,12 @@ nav{
     text-decoration: none;
     letter-spacing: 3px;
 }
+.nav-links a:hover{
+    color: #22A7CF;
+}
+.nav-links a .highlight{
+    color: #22A7CF;
+}
 
 .burger div{
     width: 25px;
@@ -51,7 +61,11 @@ nav{
 .burger{
     display: none;
 }
-
+.disclaimer{
+    padding-top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
 @media screen and (max-width:980px){
     body{
         overflow-x: hidden;
@@ -71,10 +85,29 @@ nav{
     }
     .nav-links li{
         opacity: 0;
+        margin: 10px 0;
+        padding: 0px 0; /* Zwiększenie obszaru klikalnego poprzez padding */
+        width: 100%; /* Ustawienie pełnej szerokości */
+        text-align: center; /* Wycentrowanie tekstu */
+    }
+    .nav-links a {
+        padding: 20vh 50px; /* Zwiększenie przestrzeni wewnątrz linka */
+        width: 100%; /* Ustawienie pełnej szerokości */
+        display: block; /* Upewnienie się, że link zajmuje cały obszar elementu li */
+        text-align: center; /* Wycentrowanie tekstu */
+    }
+    .nav-links a:hover{
+        background-color: #e6e6e6;
     }
     .burger{
         display: block;
         cursor: pointer;
+    }
+    .cennik{
+        font-size: 15px;
+    }
+    .disclaimer{
+        font-size: 10px;
     }
 }
 
@@ -118,4 +151,27 @@ nav{
 }
 .toggle .line3{
     transform: rotate(45deg) translate(-5px,-6px);
+}
+
+.content{
+    font-family: Montserrat;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 4vh;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 30px;
+}
+h2{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1vh;
+}
+.cennik{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    line-height: 2;
 }
