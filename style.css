@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: Montserrat;
 }
 html, body {
     width: 100vw;
@@ -262,13 +263,13 @@ h2{
     font-family: Montserrat;
     font-weight: 600;
     font-style: italic;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
 .port {
-    background: linear-gradient(79deg, rgba(85,27,212,1) 0%, rgba(245,133,41,1) 100%);
+    background: linear-gradient(79deg, #551bd4 0%, #f58529 100%);
     -webkit-background-clip: text;
     background-clip: text;
     border-right: 1px double #e2e2e2;
@@ -286,6 +287,12 @@ h2{
     font-size: 50px;
     letter-spacing: 5px;
     transition: transform 0.2s ease-in;
+}
+.port:hover{
+    text-shadow: 0px 0px 150px rgb(186, 40, 186);
+}
+.prod:hover{
+    text-shadow: 0px 0px 150px rgb(55, 197, 33);
 }
 .headerText {
     display: inline-block;
