@@ -288,12 +288,12 @@ h2{
     letter-spacing: 5px;
     transition: transform 0.2s ease-in;
 }
-.port:hover{
+/* .port:hover{
     text-shadow: 0px 0px 150px rgb(186, 40, 186);
 }
 .prod:hover{
     text-shadow: 0px 0px 150px rgb(55, 197, 33);
-}
+} */
 .headerText {
     display: inline-block;
     transition: all .2s ease-in-out;
