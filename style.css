@@ -183,6 +183,38 @@ h2{
     text-align: center;
     line-height: 2;
 }
+.highlight {
+    color: red;
+    font-weight: bold;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    vertical-align: middle; /* lub spróbuj top/bottom, jeśli dalej jest problem */
+    background: #121FCF;
+    background: linear-gradient(to right, #121FCF 0%, #22A7CF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.highlight.h1{
+    background: #121FCF;
+    background: linear-gradient(to right, #0da319 0%, #a9c600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.highlight.h2{
+    background: #121FCF;
+    background: linear-gradient(to right, #3a9c01 0%, #e46c02 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.highlight.h3{
+    background: #121FCF;
+    background: linear-gradient(to right, #5a70ff 0%, #23cc99 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 
 /* Galeria */
 .img-gallery{
