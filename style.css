@@ -204,13 +204,13 @@ h2{
 }
 .highlight.h2{
     background: #121FCF;
-    background: linear-gradient(to right, #3a9c01 0%, #e46c02 100%);
+    background: linear-gradient(to right, #44cb00 0%, #d19200 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 .highlight.h3{
     background: #121FCF;
-    background: linear-gradient(to right, #5a70ff 0%, #23cc99 100%);
+    background: linear-gradient(to right, #b23bfc 0%, #ff29b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
