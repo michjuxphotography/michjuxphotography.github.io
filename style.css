@@ -20,6 +20,9 @@ nav{
     -moz-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
     box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
     z-index: 10;
+    position: fixed;
+    width: 100vw;
+    background: rgba(255,255,255,0.9);
 }
 
 .logo{
@@ -77,7 +80,7 @@ nav{
         right: 0px;
         height: 92vh;
         top: 8vh;
-        background-color: white;
+        background-color: rgba(255,255,255,0.95);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -98,9 +101,11 @@ nav{
         width: 100%; /* Ustawienie pełnej szerokości */
         display: block; /* Upewnienie się, że link zajmuje cały obszar elementu li */
         text-align: center; /* Wycentrowanie tekstu */
+        transition: font-size 0.2s;
     }
     .nav-links a:hover{
-        background-color: #e6e6e6;
+        font-size: 20px;
+        transition: font-size 0.2s;
     }
     .burger{
         display: block;
@@ -253,6 +258,9 @@ h2{
 .choice {
     display: flex;
     justify-content: space-around;
+    position: absolute;
+    height: 92vh;
+    top: 8vh;
 }
 .choice div {
     padding-top: 42vh;
@@ -280,13 +288,17 @@ h2{
     background-clip: text;
     border-left: 1px double #e2e2e2;
 }
+.prod .port{
+    height: 92vh;
+    top: 8vh;
+}
 .choice:hover {
     cursor: pointer;
 }
 .port:hover, .prod:hover {
     font-size: 50px;
     letter-spacing: 5px;
-    transition: transform 0.2s ease-in;
+    transition: font-size 0.1s ;
 }
 /* .port:hover{
     text-shadow: 0px 0px 150px rgb(186, 40, 186);
