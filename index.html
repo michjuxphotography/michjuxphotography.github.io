@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <!-- Sfera tła reagująca na mysz z animowanymi cząsteczkami -->
+    <canvas id="particles-canvas"></canvas>
+
     <nav>
         <div class="logo">
             <h4><a href="https://michjuxphotography.github.io">MICHJUX PHOTOGRAPHY</a></h4>
@@ -27,26 +31,20 @@
             <div class="line3"></div>
         </div>
     </nav>
-    
+
     <div class="choice">
-        <div class="port" id="port">
-            <a class="headerText" href="https://michjuxphotography.github.io/portrety">PORTRETY</a>
-        </div>
-        <div class="prod" id="prod">
-            <a class="headerText" href="https://michjuxphotography.github.io/produkty">PRODUKTY</a>
-        </div>
+        <a href="https://michjuxphotography.github.io/portrety" class="split-section port" id="port">
+            <div class="overlay"></div>
+            <h2 class="headerText">PORTRETY</h2>
+        </a>
+        <a href="https://michjuxphotography.github.io/produkty" class="split-section prod" id="prod">
+            <div class="overlay"></div>
+            <h2 class="headerText">PRODUKTY</h2>
+        </a>
     </div>
 
-    <script>
-        document.getElementById('port').addEventListener('click', function () {
-            window.location.href = 'https://michjuxphotography.github.io/portrety';
-        });
-        document.getElementById('prod').addEventListener('click', function () {
-            window.location.href = 'https://michjuxphotography.github.io/produkty';
-        });
-    </script>
 
-    
     <script src="nav.js"></script>
     <script src="gallery.js"></script>
+    <script src="particles.js"></script>
 </body>

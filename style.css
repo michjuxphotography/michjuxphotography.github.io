@@ -1,125 +1,254 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: Montserrat;
-}
-html, body {
-    width: 100vw;
-    overflow-x: hidden;
+    font-family: 'Montserrat', sans-serif;
 }
 
-nav{
+/* Zabezpieczenie obrazków przed interakcjami zapisu i przeciagania */
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+    /* iOS Safari - blokada menu po przytrzymaniu palcem */
+    user-select: none;
+    /* Blokada zaznaczania na dluzej */
+}
+
+html,
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    /* Ruchomy, ciemny gradient dla całości */
+    background: linear-gradient(-45deg, #050b14, #0a1128, #121FCF, #083c52);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #f8fafc;
+    line-height: 1.6;
+    position: relative;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Canvas dla cząsteczek */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 8vh;
-    font-family: Montserrat;
-    font-style: italic;
-    -webkit-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
-    -moz-box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
-    box-shadow: 0px 0px 27px -17px rgba(66, 68, 90, 1);
-    z-index: 10;
+    min-height: 6vh;
+    font-style: normal;
+    font-weight: 500;
+
+    /* Modern Floating Pill Design dla Dark Mode / Ciemnego Tła */
+    background: rgba(15, 23, 42, 0.5);
+    /* Ciemne szkło */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50px;
+
+    z-index: 20;
     position: fixed;
-    width: 100vw;
-    background: rgba(255,255,255,0.9);
+    top: 20px;
+    left: 5%;
+    width: 90%;
+    padding: 10px 20px;
 }
 
-.logo{
-    color: #121212;
+.logo {
+    color: #f8fafc;
+    /* Jasny, wyraźny tekst z delikatnym gradientem do mroku */
     font-size: 25px;
     letter-spacing: 5px;
-    background: #121FCF;
-    background: linear-gradient(to right, #121FCF 0%, #22A7CF 100%);
+    background: linear-gradient(to right, #ffffff 0%, #e5e6e5 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(235, 235, 235, 0.1);
 }
 
-.nav-links{
+.logo a {
+    text-decoration: none;
+    color: inherit;
+    /* Dziedziczy przezroczysty kolor fill z tekstu */
+}
+
+/* Wymuszenie czystego linku bez underline dla logo */
+.logo a::after {
+    display: none;
+}
+
+.nav-links {
     display: flex;
     justify-content: space-around;
-    width: 30%;
-}
-.nav-links li{
-    list-style: none;
-}
-.nav-links a{
-    color: #121212; 
-    text-decoration: none;
-    letter-spacing: 3px;
-}
-.nav-links a:hover{
-    color: #22A7CF;
-}
-.nav-links a .highlight{
-    color: #22A7CF;
+    width: 35%;
 }
 
-.burger div{
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
+    color: #e2e8f0;
+    /* Jasne szarości pasujące do dark mode */
+    text-decoration: none;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+/* Nowoczesny underline hover effect */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to right, #60a5fa 0%, #34d399 100%);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #38bdf8;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Usuwamy stara definicje highlight nadpisującą underline, by wyglądało minimalistycznie */
+.nav-links a .highlight {
+    font-weight: 700;
+    color: #38bdf8;
+}
+
+.burger div {
     width: 25px;
     height: 3px;
     margin: 5px;
-    background-color: #121212;
+    background-color: #374151;
+    border-radius: 3px;
+    /* Zaokrąglony hamburger */
     transition: all 0.3s ease;
 }
 
-.burger{
+.burger {
     display: none;
 }
-.disclaimer{
+
+.disclaimer {
     padding-top: 20px;
     font-size: 20px;
     text-align: center;
 }
-@media screen and (max-width:980px){
-    body{
+
+@media screen and (max-width:980px) {
+    body {
         overflow-x: hidden;
     }
-    .nav-links{
+
+    .nav-links {
         position: absolute;
         right: 0px;
         height: 92vh;
         top: 8vh;
-        background-color: rgba(255,255,255,0.95);
+        /* Zgodne z ciemnym motywem szklane tło menu mobilnego */
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        /* Symetryczny cień */
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 50%;
-        transform: translateX(100%);
-        transition: transform 0.3s ease-in;
-        z-index: 1;
+        justify-content: center;
+        width: 100%;
+        transform: translateX(120%);
+        /* Chowamy całkowicie za ekran */
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 100;
+        border-radius: 30px;
+        /* Symetryczne zaokrąglenie */
     }
-    .nav-links li{
+
+    .nav-links li {
         opacity: 0;
-        margin: 10px 0;
-        padding: 0px 0; /* Zwiększenie obszaru klikalnego poprzez padding */
-        width: 100%; /* Ustawienie pełnej szerokości */
-        text-align: center; /* Wycentrowanie tekstu */
+        margin: 15px 0;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
     }
+
     .nav-links a {
-        padding: 20vh 50px; /* Zwiększenie przestrzeni wewnątrz linka */
-        width: 100%; /* Ustawienie pełnej szerokości */
-        display: block; /* Upewnienie się, że link zajmuje cały obszar elementu li */
-        text-align: center; /* Wycentrowanie tekstu */
-        transition: font-size 0.2s;
+        padding: 15px 20px;
+        width: auto;
+        min-width: 200px;
+        /* Nie na całą szerokość, żeby wyglądało zgrabniej jak przycisk */
+        border-radius: 12px;
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #f8fafc;
+        transition: font-size 0.2s, background-color 0.3s ease;
     }
-    .nav-links a:hover{
-        font-size: 20px;
-        transition: font-size 0.2s;
+
+    .nav-links a::after {
+        display: none;
     }
-    .burger{
+
+    .nav-links a:hover,
+    .nav-links a:active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #38bdf8;
+    }
+
+    .burger {
         display: block;
         cursor: pointer;
     }
-    .cennik{
-        font-size: 15px;
+
+    .cennik {
+        font-size: 1rem;
+        padding: 25px;
     }
-    .disclaimer{
-        font-size: 10px;
+
+    .disclaimer {
+        font-size: 0.8rem;
     }
 }
 
-.nav-active{
+.nav-active {
     transform: translateX(0%);
 }
 
@@ -128,6 +257,7 @@ nav{
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0px);
@@ -145,221 +275,584 @@ nav{
     }
 } */
 
-@media screen and (max-width:980px){
-    .logo{
+@media screen and (max-width:980px) {
+    .logo {
         font-size: 15px;
     }
 }
 
-.toggle .line1{
-    transform: rotate(-45deg) translate(-5px,6px);
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
 }
-.toggle .line2{
+
+.toggle .line2 {
     opacity: 0;
 }
-.toggle .line3{
-    transform: rotate(45deg) translate(-5px,-6px);
+
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
-.content{
-    font-family: Montserrat;
+.content {
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     padding-top: 15vh;
-    font-style: italic;
+    padding-bottom: 5vh;
     font-weight: 400;
-    font-size: 30px;
+    font-size: 18px;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
 }
-h2{
+
+h2 {
     display: flex;
     justify-content: center;
-    padding-bottom: 1vh;
+    padding-bottom: 2vh;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f8fafc;
 }
-.cennik{
+
+.cennik {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    line-height: 2;
+    justify-content: flex-start;
+    /* Zapobiega dziwnym układom przy wymuszonym flex */
+    background: rgba(30, 41, 59, 0.6);
+    /* Ciemnografitowa karta ze szkła */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.cennik:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+}
+
+.cennik>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+}
+
+.cennik>div:last-child {
+    border-bottom: none;
+}
+
 .highlight {
-    color: red;
-    font-weight: bold;
-    display: inline;
-    margin: 0;
-    padding: 0;
-    line-height: normal;
-    vertical-align: middle; /* lub spróbuj top/bottom, jeśli dalej jest problem */
-    background: #121FCF;
-    background: linear-gradient(to right, #121FCF 0%, #22A7CF 100%);
+    font-weight: 700;
+    background: linear-gradient(135deg, #3b48f5 0%, #22A7CF 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    /* Poprawka wsparcia */
+    font-size: 1.3rem;
 }
-.highlight.h1{
-    background: #121FCF;
-    background: linear-gradient(to right, #0da319 0%, #a9c600 100%);
+
+.highlight.h1 {
+    background: linear-gradient(135deg, #0da319 0%, #a9c600 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
-.highlight.h2{
-    background: #121FCF;
-    background: linear-gradient(to right, #44cb00 0%, #d19200 100%);
+
+.highlight.h2 {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
-.highlight.h3{
-    background: #121FCF;
-    background: linear-gradient(to right, #b23bfc 0%, #ff29b8 100%);
+
+.highlight.h3 {
+    background: linear-gradient(135deg, #9333ea 0%, #c084fc 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 
-/* Galeria */
-.img-gallery{
+/* Galeria - Nowoczesny układ Masonry */
+.img-gallery {
+    width: 85%;
+    margin: 120px auto 50px;
+    column-count: 3;
+    column-gap: 25px;
+}
+
+/* Kafelki do postów Instagram (dla portrety.html) */
+.portrait {
     width: 80%;
     margin: 100px auto 50px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 50px;
-    
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 40px;
 }
-.portrait{
-    width: 80%;
-    margin: 100px auto 50px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 100px;
-    
+
+/* Nowoczesne szklane obramowanie dla embedów Instagrama */
+.portrait .img {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.img-gallery img{
+
+.portrait .img:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* Ukrycie brzydkiego białego tła i obramowań z samego embedu IG */
+.portrait .img blockquote {
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    background: transparent !important;
+}
+
+.img-gallery img {
     width: 100%;
     cursor: pointer;
-    transition: transform 0.2s ease-in;
-}
-.img-gallery img:hover{
-    transform: scale(0.9) rotate(-8deg);
-    border-radius: 20px;
-    box-shadow: 0 32px 75px rgba(68,77,136, 0.2);
-    transition: transform 0.2s ease-in;
+    margin-bottom: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    break-inside: avoid;
+    /* Zapobiega łamaniu zdjęć między kolumnami */
+    display: block;
+    position: relative;
 }
 
-.full-img{
+.img-gallery img:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(56, 189, 248, 0.25);
+    border-radius: 24px;
+}
+
+/* Responsywność dla galerii Masonry */
+@media screen and (max-width: 1200px) {
+    .img-gallery {
+        column-count: 2;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .img-gallery {
+        column-count: 1;
+        width: 90%;
+    }
+}
+
+.full-img {
     width: 100%;
     height: 100vh;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
     position: fixed;
     top: 0;
     left: 0;
     display: none;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     z-index: 100;
 }
 
-.full-img img{
+.full-img img {
     width: 90%;
     max-width: 500px;
     pointer-events: none;
 }
-.x{
+
+.x {
     position: absolute;
     top: 5%;
     right: 5%;
 }
-.x div{
+
+.x div {
     width: 25px;
     height: 3px;
     margin: 5px;
     background-color: rgb(255, 255, 255);
 }
-.x:hover{
+
+.x:hover {
     cursor: pointer;
 }
-.line4{
-    transform: rotate(-45deg) translate(-5px,6px);
+
+.line4 {
+    transform: rotate(-45deg) translate(-5px, 6px);
 }
-.line5{
+
+.line5 {
     opacity: 0;
 }
-.line6{
-    transform: rotate(45deg) translate(-5px,-6px);
+
+.line6 {
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .choice {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 0;
+    overflow: hidden;
+    background: transparent;
+    position: relative;
+    z-index: 5;
+    /* Ponad tłem, ale pod navbarem */
+}
+
+/* Centralny pasek silnie rozmywający tło pod spodem, by fizycznie "stopić" ostry podział na szwie */
+.choice::after {
+    content: '';
     position: absolute;
-    height: 92vh;
-    top: 8vh;
+    top: 0;
+    left: 40vw;
+    /* 10vw po lewej i prawej od środka ekranu (40 - 60%) */
+    width: 20vw;
+    height: 100%;
+    /* Ekstremalne rozmycie pikseli tła poniżej, co połączy granat i zieleń ze sobą */
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+
+    /* Gładkie wygaszenie krawędzi samego rozmycia, byśmy nie widzieli paska blura (!) */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 50%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 50%, transparent 100%);
+
+    pointer-events: none;
+    z-index: 4;
+    transition: opacity 0.5s ease;
 }
-.choice div {
-    padding-top: 42vh;
-    padding-bottom: 48vh;
-    width: 50vw;
-    text-align: center;
-    font-size: 20px;
-    font-family: Montserrat;
-    font-weight: 600;
-    font-style: italic;
-    letter-spacing: 5px;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+
+/* Wygaszenie blendera, gdy któraś z sekcji jest maksymalizowana */
+.choice:has(.split-section:hover)::after {
+    opacity: 0;
 }
-.port {
-    background: linear-gradient(79deg, #551bd4 0%, #f58529 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    border-right: 1px double #e2e2e2;
-}
-.prod {
-    background: linear-gradient(270deg, rgba(26,190,208,1) 0%, rgba(25,196,78,1) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    border-left: 1px double #e2e2e2;
-}
-.prod .port{
-    height: 92vh;
-    top: 8vh;
-}
-.choice:hover {
-    cursor: pointer;
-}
-.port:hover, .prod:hover {
-    font-size: 50px;
-    letter-spacing: 5px;
-    transition: font-size 0.1s ;
-}
-/* .port:hover{
-    text-shadow: 0px 0px 150px rgb(186, 40, 186);
-}
-.prod:hover{
-    text-shadow: 0px 0px 150px rgb(55, 197, 33);
-} */
-.headerText {
-    display: inline-block;
-    transition: all .2s ease-in-out;
+
+.split-section {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
+    transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
 }
-/* .headerText:hover {
-    transform: scale(2.1);
-    
-} */
+
+.split-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 0;
+}
+
+/* Dopasowane graficznie gradienty pod kolor logo / cennika na ciemnym szkle */
+.port::before {
+    background: linear-gradient(to right, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: 100.5%;
+    /* Zabezpiecza lukę subpikselową przy styku sekcji */
+}
+
+.prod::before {
+    background: linear-gradient(to right, rgba(59, 130, 246, 0.8) 0%, rgba(16, 185, 129, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    left: -0.5%;
+    width: 100.5%;
+}
+
+/* Usunięte stare nakładki cieniowania i z-indexy, nie są już potrzebne dzięki fizycznemu blur'owi w .choice::after */
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    /* Przyciemnienie w spoczynku */
+    transition: background 0.6s ease;
+    z-index: 1;
+}
+
+.headerText {
+    position: relative;
+    z-index: 2;
+    color: white;
+    font-size: 3rem;
+    font-family: Montserrat;
+    font-weight: 800;
+    letter-spacing: 15px;
+    text-transform: uppercase;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    opacity: 0.8;
+    transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.split-section:hover {
+    flex: 1.5;
+    /* Powiększanie sekcji na najechanie */
+}
+
+.split-section:hover::before {
+    transform: scale(1.05);
+    /* Lekki zoom tła */
+}
+
+.split-section:hover .overlay {
+    background: rgba(0, 0, 0, 0);
+    /* Usunięcie przyciemnienia */
+}
+
+.split-section:hover .headerText {
+    opacity: 1;
+    font-size: 4rem;
+    /* Zwiększenie czcionki */
+    letter-spacing: 20px;
+}
+
 h3 {
     font-family: Montserrat;
     display: flex;
     justify-content: center;
-    padding-top: 20vh;
+    padding-top: 0vh;
 }
-@media screen and (max-width:980px){
-    .port:hover, .prod:hover {
-        font-size: 25px;
+
+@media screen and (max-width:980px) {
+    .choice {
+        flex-direction: column;
+    }
+
+    /* Na mobilkach wyłączamy pionowy blender, bo i tak przyciskają się do siebie od góry/dołu. Jeśli ma być pionowy, można go obrócić tak: */
+    .choice::after {
+        top: 40vh;
+        left: 0;
+        width: 100%;
+        height: 20vh;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 50%, transparent 100%);
+        background: none;
+    }
+
+    /* Usunięte stare cienie port/prod */
+    .port {
+        box-shadow: none;
+    }
+
+    .headerText {
+        font-size: 2rem;
         letter-spacing: 5px;
-        transition: transform 0.2s ease-in;
+    }
+
+    .split-section:hover .headerText {
+        font-size: 2.5rem;
+        letter-spacing: 8px;
+    }
+}
+
+/* Kalkulator */
+.cennik .calculator {
+    display: block;
+    /* Wyższa specyficzność niż .cennik > div, to naprawia flexbox ! */
+    margin-top: 15px;
+    /* Dużo mniejszy margines aby kalkulator był bliżej cennika */
+    padding: 20px 0 0 0;
+    /* Zmniejszony odstęp wewnątrz (od przerywanej linii) */
+    border-top: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none !important;
+    /* Nadpisuje border-bottom z .cennik > div */
+    max-width: 100%;
+    width: 100%;
+    font-style: normal;
+}
+
+.calculator h3 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: #f8fafc;
+    text-align: left;
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* Zabezpieczenie przed wychodzeniem ze strony */
+    margin-bottom: 20px;
+    padding: 0;
+    border-bottom: none;
+    font-size: 1.1rem;
+    gap: 15px;
+    /* Odstęp podczas zawijania */
+}
+
+.calc-row label {
+    color: #cbd5e1;
+    flex: 1;
+    min-width: 200px;
+    /* Nie ściska etykiet za mocno na średnich ekranach */
+}
+
+/* Custom Number Input Wrapper */
+.input-group {
+    display: flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-left: auto;
+    width: 140px;
+    transition: all 0.3s ease;
+}
+
+.input-group:focus-within {
+    border-color: #38bdf8;
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+.btn-calc {
+    background: transparent;
+    border: none;
+    color: #f8fafc;
+    font-size: 1.4rem;
+    width: 45px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-calc:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #38bdf8;
+}
+
+.calc-row input {
+    font-size: 18px;
+    width: 50px;
+    height: 40px;
+    padding: 0;
+    text-align: center;
+    border: none;
+    background: transparent;
+    color: #f8fafc;
+    outline: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.calc-row input::-webkit-outer-spin-button,
+.calc-row input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calc-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+}
+
+.calc-result span {
+    font-size: 1.8rem;
+}
+
+@media screen and (max-width:980px) {
+    .calculator h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .calc-row label {
+        font-size: 16px;
+    }
+
+    .calc-row input {
+        font-size: 16px;
+    }
+
+    .input-group {
+        width: 120px;
+    }
+
+    .calc-result {
+        font-size: 20px;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .calc-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .input-group {
+        width: 100%;
+        margin-left: 0;
+        box-sizing: border-box;
+        justify-content: space-between;
+    }
+
+    .calc-row input {
+        width: 100%;
+    }
+
+    .calculator {
+        padding: 20px 0 0 0;
     }
 }

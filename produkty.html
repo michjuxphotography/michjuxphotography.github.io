@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <!-- Sfera tła reagująca na mysz z animowanymi cząsteczkami -->
+    <canvas id="particles-canvas"></canvas>
     <nav>
         <div class="logo">
             <h4><a href="https://michjuxphotography.github.io">MICHJUX PHOTOGRAPHY</a></h4>
@@ -27,6 +30,16 @@
             <div class="line3"></div>
         </div>
     </nav>
+
+    <!-- Header / Hero Sekcja dla Produktów -->
+    <div class="page-header" style="margin-top: 120px; text-align: center; margin-bottom: -50px;">
+        <h1 style="font-size: 3.5rem; color: #f8fafc; margin-bottom: 10px;">Portfolio <span class="highlight h1"
+                style="font-weight: 800;">Produkty</span></h1>
+        <p style="color: #cbd5e1; font-size: 1.2rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+            Detale, które mówią same za siebie. Profesjonalna fotografia produktowa, podkreślająca design i jakość.
+        </p>
+    </div>
+
     <div class="full-img" id="fullImgBox">
         <img src="images/DSC00459.jpg" id="fullImg">
         <div class="x" onclick="closeFullImg()">
@@ -35,18 +48,12 @@
             <div class="line6"></div>
         </div>
     </div>
-    <div class="img-gallery">
-        <img src="images/1.jpg" onclick="openFullImg(this.src)">
-        <img src="images/4.jpg" onclick="openFullImg(this.src)">
-        <img src="images/3.jpg" onclick="openFullImg(this.src)">
-        <img src="images/5.jpg" onclick="openFullImg(this.src)">
-        <img src="images/6.jpg" onclick="openFullImg(this.src)">
-        <img src="images/8.jpg" onclick="openFullImg(this.src)">
-        <img src="images/7.jpg" onclick="openFullImg(this.src)">
-        <img src="images/2.jpg" onclick="openFullImg(this.src)">
+    <div class="img-gallery" data-folder="produkty">
+        <!-- ZDJĘCIA ŁADUJĄ SIĘ AUTOMATYCZNIE PRZEZ SKRYPT -->
     </div>
-    
-    
+
+
     <script src="nav.js"></script>
     <script src="gallery.js"></script>
+    <script src="particles.js"></script>
 </body>

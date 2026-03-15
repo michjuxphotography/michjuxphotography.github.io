@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
+    <!-- Sfera tła reagująca na mysz z animowanymi cząsteczkami -->
+    <canvas id="particles-canvas"></canvas>
+
     <nav>
         <div class="logo">
             <h4><a href="https://michjuxphotography.github.io">MICHJUX PHOTOGRAPHY</a></h4>
@@ -31,19 +35,90 @@
     <div class="content">
         <div class="cennik">
             <h2>Cennik*</h2>
-            
-            <div>Opłata bazowa (w tym za 10 zdjęć z obróbką) - <span class="highlight">50 PLN</span></div>
-            <div>Każde kolejne zdjęcie (do 50 zdjęć)** - <span class="highlight h1">1 PLN</span></div>
-            <div>Każde kolejne zdjęcie (powyżej 50 zdjęć)** - <span class="highlight h1">1,5 PLN</span></div>
-            <div>Zdjęcie bez obróbki - <span class="highlight h3">0,5 PLN</span></div>
+
+            <div>Opłata bazowa (w tym za 10 zdjęć z obróbką) <span class="highlight">80 PLN</span></div>
+            <div>Każde kolejne zdjęcie (do 50 zdjęć)** <span class="highlight h1">1 PLN</span></div>
+            <div>Każde kolejne zdjęcie (powyżej 50 zdjęć)** <span class="highlight h1">1,5 PLN</span></div>
+            <div>Zdjęcie bez obróbki <span class="highlight h3">0,5 PLN</span></div>
+
+            <div class="calculator">
+                <h3>Kalkulator ceny</h3>
+                <div class="calc-row">
+                    <label for="editedPhotos">Liczba zdjęć z obróbką:</label>
+                    <div class="input-group">
+                        <button class="btn-calc" onclick="updatePhotos('editedPhotos', -1)">-</button>
+                        <input type="number" id="editedPhotos" min="0" value="10">
+                        <button class="btn-calc" onclick="updatePhotos('editedPhotos', 1)">+</button>
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <label for="uneditedPhotos">Liczba zdjęć bez obróbki (opcjonalnie):</label>
+                    <div class="input-group">
+                        <button class="btn-calc" onclick="updatePhotos('uneditedPhotos', -1)">-</button>
+                        <input type="number" id="uneditedPhotos" min="0" value="0">
+                        <button class="btn-calc" onclick="updatePhotos('uneditedPhotos', 1)">+</button>
+                    </div>
+                </div>
+                <div class="calc-result">
+                    Szacowana cena: <span id="totalPrice" class="highlight">80 PLN</span>
+                </div>
+            </div>
         </div>
         <div class="disclaimer">
-            *Cennik dotyczy sesji portretowych oraz sesji produktowych. Ceny innych usług wyznaczane są indywidualnie </br>
-            **Liczona jest łączna liczba zdjęć wraz ze zdjęciami zawartymi w opłacie bazowej. 
+            *Cennik dotyczy sesji portretowych oraz sesji produktowych. Ceny innych usług wyznaczane są indywidualnie
+            </br>
+            **Liczona jest łączna liczba zdjęć wraz ze zdjęciami zawartymi w opłacie bazowej.
             W cenę wliczony jest koszt obróbki.
-            
+
         </div>
     </div>
-    
+
+    <script>
+        function updatePhotos(id, delta) {
+            const input = document.getElementById(id);
+            let val = parseInt(input.value) || 0;
+            val += delta;
+            if (val < 0) val = 0;
+            input.value = val;
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const editedPhotosInput = document.getElementById('editedPhotos');
+            const uneditedPhotosInput = document.getElementById('uneditedPhotos');
+
+            // Unikanie ujemnych wartości
+            if (editedPhotosInput.value < 0) editedPhotosInput.value = 0;
+            if (uneditedPhotosInput.value < 0) uneditedPhotosInput.value = 0;
+
+            const editedPhotos = parseInt(editedPhotosInput.value) || 0;
+            const uneditedPhotos = parseInt(uneditedPhotosInput.value) || 0;
+
+            let price = 80; // Opłata bazowa
+
+            if (editedPhotos > 10) {
+                const additionalEdited = editedPhotos - 10;
+
+                const tier1Photos = Math.min(additionalEdited, 40);
+                price += tier1Photos * 1;
+
+                if (editedPhotos > 50) {
+                    const tier2Photos = editedPhotos - 50;
+                    price += tier2Photos * 1.5;
+                }
+            }
+
+            price += uneditedPhotos * 0.5;
+
+            document.getElementById('totalPrice').innerText = price.toFixed(2).replace('.00', '').replace('.', ',') + ' PLN';
+        }
+
+        document.getElementById('editedPhotos').addEventListener('input', calculatePrice);
+        document.getElementById('uneditedPhotos').addEventListener('input', calculatePrice);
+
+        // Wywołanie na start w razie przeładowania strony
+        calculatePrice();
+    </script>
     <script src="nav.js"></script>
+    <script src="particles.js"></script>
 </body>
