@@ -323,7 +323,7 @@ h2 {
     flex-direction: column;
     justify-content: flex-start;
     /* Zapobiega dziwnym układom przy wymuszonym flex */
-    background: rgba(30, 41, 59, 0.6);
+    /* background: rgba(30, 41, 59, 0.6); */
     /* Ciemnografitowa karta ze szkła */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -346,9 +346,13 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap !important;
+    /* Absolutny zakaz zawijania kontenera */
     padding: 15px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 1.1rem;
+    gap: 15px;
+    /* Dodano odstęp, by tekst nie przyklejał się do ceny na małych ekranach */
 }
 
 .cennik>div:last-child {
@@ -363,6 +367,10 @@ h2 {
     color: transparent;
     /* Poprawka wsparcia */
     font-size: 1.3rem;
+    white-space: nowrap !important;
+    /* Wymuszenie braku załamania */
+    display: inline-block;
+    /* Traktowanie lącznie jako bloku tekstu */
 }
 
 .highlight.h1 {
@@ -854,5 +862,20 @@ h3 {
 
     .calculator {
         padding: 20px 0 0 0;
+    }
+}
+
+@media screen and (max-width: 615px) {
+    .cennik>div:not(:last-child) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 20px 0;
+        text-align: left;
+    }
+
+    .cennik>div .highlight {
+        align-self: flex-start;
+        font-size: 1.5rem;
     }
 }
