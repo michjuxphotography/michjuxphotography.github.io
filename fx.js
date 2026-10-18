@@ -111,7 +111,7 @@
         gl.uniform3fv(u.c3, palette[2]);
 
         // Renderujemy w obniżonej rozdzielczości - szum jest miękki, a telefony to docenią
-        const quality = lowPower ? 0.35 : 0.5;
+        const quality = lowPower ? 0.25 : 0.5;
         function resize() {
             const w = Math.max(1, Math.round(innerWidth * quality));
             const h = Math.max(1, Math.round(innerHeight * quality));
@@ -290,11 +290,21 @@
             const hoverTarget = fx.el.closest('a') || fx.el;
             hoverTarget.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') fire(fx); });
         });
+        // Losujemy tylko spośród nagłówków widocznych na ekranie (i rzadziej na telefonach)
+        const visible = new Set('IntersectionObserver' in window ? [] : effects);
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(entries => entries.forEach(entry => {
+                const fx = effects.find(f => f.el === entry.target);
+                entry.isIntersecting ? visible.add(fx) : visible.delete(fx);
+            }));
+            effects.forEach(fx => io.observe(fx.el));
+        }
         (function schedule() {
             setTimeout(() => {
-                if (effects.length && !document.hidden) fire(effects[Math.random() * effects.length | 0]);
+                const pool = [...visible];
+                if (pool.length && !document.hidden) fire(pool[Math.random() * pool.length | 0]);
                 schedule();
-            }, 2200 + Math.random() * 3500);
+            }, (2200 + Math.random() * 3500) * (lowPower ? 2 : 1));
         })();
     }
 

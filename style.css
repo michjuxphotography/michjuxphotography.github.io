@@ -49,6 +49,9 @@ body[data-theme="price"] {
 }
 
 html {
+    /* Na telefonach overflow na body nie wystarcza - wystające efekty poszerzały widok */
+    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
     background: var(--bg);
@@ -436,8 +439,9 @@ body.menu-open .menu-overlay {
     transition: clip-path 0.9s var(--ease-io);
 }
 
-body.menu-open,
-body.lb-lock {
+/* Blokada przewijania na html - overflow ustawiony na html sprawia, że body już go nie przekazuje */
+html:has(body.menu-open),
+html:has(body.lb-lock) {
     overflow: hidden;
 }
 
@@ -1780,6 +1784,23 @@ body.menu-open .menu-foot {
     .js .ch,
     .js [data-reveal] {
         filter: none;
+    }
+
+    /* Wirujące krawędzie i płynący gradient tytułu przerysowują się co klatkę na głównym wątku -
+       na telefonach zostają nieruchome */
+    nav::before,
+    .glow-card::before,
+    .grad-text {
+        animation: none;
+    }
+
+    /* Rozbłysk flesza nie może wystawać poza ekran */
+    .page-header {
+        overflow-x: clip;
+    }
+
+    .flash::after {
+        width: 100%;
     }
 }
 
