@@ -28,8 +28,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Wygeneruj listę zdjęć
+      - name: Zainstaluj sharp (pomniejszanie zdjęć)
+        run: npm install --no-save --no-package-lock sharp@0.33.5
+      - name: Wygeneruj listę zdjęć i pomniejszone kopie
         run: node update-gallery.js
+      - name: Usuń node_modules z publikacji
+        run: rm -rf node_modules
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -1736,6 +1736,53 @@ body.menu-open .menu-foot {
     }
 }
 
+/* ---------- Telefony i tablety: lżejsze efekty ---------- */
+/* Tło WebGL i tak zasłania animowany gradient, a jego animacja przerysowuje całą stronę co klatkę */
+.webgl body {
+    animation: none;
+}
+
+@media (hover: none), (max-width: 860px) {
+    /* Ziarno: nieruchoma warstwa wielkości ekranu zamiast animowanej 4x większej */
+    body::after {
+        inset: 0;
+        animation: none;
+    }
+
+    /* backdrop-filter nad tłem zmieniającym się co klatkę to rozmywanie w każdej klatce - zastępujemy gęstszym tłem */
+    nav,
+    .menu-overlay,
+    .split-cta,
+    .lightbox::before,
+    .lb-btn,
+    .glow-card {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    nav {
+        background: rgba(6, 9, 20, 0.85);
+    }
+
+    .split-cta {
+        background: rgba(4, 6, 13, 0.45);
+    }
+
+    .lb-btn {
+        background: rgba(20, 24, 36, 0.8);
+    }
+
+    .glow-card {
+        background: rgba(8, 12, 26, 0.88);
+    }
+
+    /* Animowane rozmycie (filter: blur) dużych bloków jest kosztowne - zostaje samo wysuwanie */
+    .js .ch,
+    .js [data-reveal] {
+        filter: none;
+    }
+}
+
 /* ---------- Ograniczony ruch ---------- */
 @media (prefers-reduced-motion: reduce) {
     *,

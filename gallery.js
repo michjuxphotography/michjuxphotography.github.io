@@ -196,9 +196,11 @@
             fullImg.src = images[next];
             updateCounter();
             preload(next + dir);
+            // Rozmycie dużego zdjęcia jest na telefonach za drogie - tam samo przesunięcie
+            const blur = finePointer ? [{ filter: 'blur(8px)' }, { filter: 'blur(0)' }] : [{}, {}];
             frame.animate([
-                { transform: `translateX(${dir * 90}px) scale(0.96)`, opacity: 0, filter: 'blur(8px)' },
-                { transform: 'none', opacity: 1, filter: 'blur(0)' }
+                { transform: `translateX(${dir * 90}px) scale(0.96)`, opacity: 0, ...blur[0] },
+                { transform: 'none', opacity: 1, ...blur[1] }
             ], { duration: 450, easing: ease });
         };
         if (!frame.animate || reduceMotion) return swap();
@@ -363,19 +365,25 @@
                 }
                 return response.json();
             })
-            .then(data => (data && data[folderName]) || null);
+            .then(data => data && data[folderName] && { files: data[folderName], resized: !!data.resized });
     }
 
+    // Pomniejszone kopie (images/_m) generuje update-gallery.js; lokalnie używamy oryginałów
+    const resizedSrc = (name, size) => `images/_m/${folderName}/${size}/${encodeURIComponent(name.replace(/\.[^.]+$/, '.webp'))}`;
+
     listFolder()
-        .then(files => files || readManifest())
-        .then(files => {
+        .then(files => files ? { files, resized: false } : readManifest())
+        .then(data => {
+            const files = data && data.files;
             if (!files || !files.length) {
                 console.log(`Brak zdjęć w folderze 'images/${folderName}/'.`);
                 return;
             }
-            images = files.map(name => `images/${folderName}/${encodeURIComponent(name)}`);
+            const original = name => `images/${folderName}/${encodeURIComponent(name)}`;
+            images = files.map(name => data.resized ? resizedSrc(name, 'lg') : original(name));
+            const thumbs = files.map(name => data.resized ? resizedSrc(name, 'sm') : original(name));
             gallery.innerHTML = '';
-            images.forEach((src, i) => {
+            thumbs.forEach((src, i) => {
                 const tile = buildTile(src, i, label);
                 gallery.appendChild(tile);
                 if (revealer) revealer.observe(tile);

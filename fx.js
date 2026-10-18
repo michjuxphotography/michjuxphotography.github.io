@@ -34,7 +34,7 @@
         float fbm(vec2 p) {
             float v = 0.0, a = 0.5;
             mat2 R = mat2(0.8, 0.6, -0.6, 0.8);
-            for (int i = 0; i < 5; i++) { v += a * n(p); p = R * p * 2.03; a *= 0.5; }
+            for (int i = 0; i < OCT; i++) { v += a * n(p); p = R * p * 2.03; a *= 0.5; }
             return v;
         }
         void main() {
@@ -85,7 +85,8 @@
             return sh;
         };
         const vs = compile(gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}');
-        const fs = compile(gl.FRAGMENT_SHADER, fragment);
+        // Szum liczony jest 5 razy na piksel - na telefonach wystarczą 3 oktawy zamiast 5
+        const fs = compile(gl.FRAGMENT_SHADER, `#define OCT ${lowPower ? 3 : 5}\n${fragment}`);
         if (!vs || !fs) return;
 
         const prog = gl.createProgram();
@@ -151,9 +152,19 @@
             frame(start + 10000);
             addEventListener('resize', () => frame(start + 10000));
         } else {
-            const loop = now => { frame(now); requestAnimationFrame(loop); };
+            // Na telefonach 30 kl./s - tło płynie wolno, a GPU zostaje dla przewijania i reszty animacji
+            const minGap = lowPower ? 1000 / 30 - 4 : 0;
+            let last = 0;
+            const loop = now => {
+                if (now - last >= minGap) {
+                    last = now;
+                    frame(now);
+                }
+                requestAnimationFrame(loop);
+            };
             requestAnimationFrame(loop);
         }
+        root.classList.add('webgl');
         requestAnimationFrame(() => canvas.classList.add('ready'));
     }
 
@@ -393,11 +404,29 @@
             ty = (e.clientY / innerHeight) * 2 - 1;
             kick();
         }, { passive: true });
+        // Żyroskop drży nawet gdy telefon leży - bez progu pętla nigdy by się nie zatrzymała
+        const step = v => Math.round(v * 25) / 25;
         addEventListener('deviceorientation', e => {
             if (e.gamma == null) return;
-            tx = clamp(e.gamma / 25);
-            ty = clamp((e.beta - 45) / 25);
+            const nx = step(clamp(e.gamma / 25));
+            const ny = step(clamp((e.beta - 45) / 25));
+            if (nx === tx && ny === ty) return;
+            tx = nx;
+            ty = ny;
             kick();
+        });
+    }
+
+    /* ---------- Tła strony głównej: pomniejszone kopie zamiast zdjęć 24 Mpx ---------- */
+    function initSplitImages() {
+        document.querySelectorAll('.split-bg[data-img]').forEach(el => {
+            const name = el.dataset.img;
+            const set = src => el.style.setProperty('--img', `url('${src}')`);
+            const img = new Image();
+            img.onload = () => set(img.src);
+            // Lokalnie (bez uruchomienia update-gallery.js) kopii nie ma - wtedy oryginał
+            img.onerror = () => set(`images/${name}`);
+            img.src = `images/_m/${name.replace(/^([^/]+)\//, '$1/lg/').replace(/\.[^.]+$/, '.webp')}`;
         });
     }
 
@@ -410,6 +439,7 @@
         update();
     }
 
+    initSplitImages();
     initBackground();
     initCursor();
     initTransitions();
