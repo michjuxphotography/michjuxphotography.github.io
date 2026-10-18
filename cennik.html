@@ -1,124 +1,209 @@
 <!DOCTYPE html>
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#04060d">
 
-    <title>MichjuX Photography</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Cennik – MichjuX Photography</title>
+    <script>document.documentElement.classList.add('js')</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <!-- Sfera tła reagująca na mysz z animowanymi cząsteczkami -->
-    <canvas id="particles-canvas"></canvas>
+<body data-theme="price">
+    <div class="curtain" aria-hidden="true"><span>CENNIK</span></div>
+    <!-- Tło WebGL reagujące na mysz i dotyk -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <nav>
         <div class="logo">
-            <h4><a href="https://michjuxphotography.github.io">MICHJUX PHOTOGRAPHY</a></h4>
+            <h4><a href="index.html">MICHJUX PHOTOGRAPHY</a></h4>
         </div>
         <ul class="nav-links">
-            <!-- <li><a href="#">Strona główna</a></li> -->
-            <li><a href="https://michjuxphotography.github.io">Portfolio</a></li>
-            <li><a class="higlight" href="https://michjuxphotography.github.io/cennik">Cennik</a></li>
+            <li><a href="index.html" data-magnetic>Portfolio</a></li>
+            <li><a class="active" href="cennik.html" data-magnetic>Cennik</a></li>
         </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
+        <button class="burger" type="button" aria-label="Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
-    <div class="content">
-        <div class="cennik">
-            <h2>Cennik*</h2>
+    <main class="content">
+        <header class="page-header compact">
+            <p class="kicker" data-reveal><span class="dot"></span>Portrety <b>&amp;</b> produkty</p>
+            <h1 class="page-title"><span class="glitch grad-text" data-text="Cennik*" data-scramble>Cennik*</span></h1>
+        </header>
 
-            <div>Opłata bazowa (w tym za 10 zdjęć z obróbką) <span class="highlight">80 PLN</span></div>
-            <div>Każde kolejne zdjęcie (do 50 zdjęć)** <span class="highlight h1">1 PLN</span></div>
-            <div>Każde kolejne zdjęcie (powyżej 50 zdjęć)** <span class="highlight h1">1,5 PLN</span></div>
-            <div>Zdjęcie bez obróbki <span class="highlight h3">0,5 PLN</span></div>
+        <section class="cennik glow-card" data-reveal>
+            <div class="price-row" style="--d: 0.15s">
+                <span>Opłata bazowa (w tym za 10 zdjęć z obróbką)</span>
+                <span class="highlight" data-count="80" data-suffix=" PLN">80 PLN</span>
+            </div>
+            <div class="price-row" style="--d: 0.25s">
+                <span>Każde kolejne zdjęcie (do 50 zdjęć)**</span>
+                <span class="highlight h1" data-count="1" data-suffix=" PLN">1 PLN</span>
+            </div>
+            <div class="price-row" style="--d: 0.35s">
+                <span>Każde kolejne zdjęcie (powyżej 50 zdjęć)**</span>
+                <span class="highlight h1" data-count="1.5" data-suffix=" PLN">1,5 PLN</span>
+            </div>
+            <div class="price-row" style="--d: 0.45s">
+                <span>Zdjęcie bez obróbki</span>
+                <span class="highlight h3" data-count="0.5" data-suffix=" PLN">0,5 PLN</span>
+            </div>
 
             <div class="calculator">
                 <h3>Kalkulator ceny</h3>
                 <div class="calc-row">
                     <label for="editedPhotos">Liczba zdjęć z obróbką:</label>
                     <div class="input-group">
-                        <button class="btn-calc" onclick="updatePhotos('editedPhotos', -1)">-</button>
-                        <input type="number" id="editedPhotos" min="0" value="10">
-                        <button class="btn-calc" onclick="updatePhotos('editedPhotos', 1)">+</button>
+                        <button class="btn-calc" type="button" data-target="editedPhotos" data-delta="-1" aria-label="Mniej">−</button>
+                        <input type="number" id="editedPhotos" min="0" value="10" inputmode="numeric">
+                        <button class="btn-calc" type="button" data-target="editedPhotos" data-delta="1" aria-label="Więcej">+</button>
                     </div>
                 </div>
                 <div class="calc-row">
                     <label for="uneditedPhotos">Liczba zdjęć bez obróbki (opcjonalnie):</label>
                     <div class="input-group">
-                        <button class="btn-calc" onclick="updatePhotos('uneditedPhotos', -1)">-</button>
-                        <input type="number" id="uneditedPhotos" min="0" value="0">
-                        <button class="btn-calc" onclick="updatePhotos('uneditedPhotos', 1)">+</button>
+                        <button class="btn-calc" type="button" data-target="uneditedPhotos" data-delta="-1" aria-label="Mniej">−</button>
+                        <input type="number" id="uneditedPhotos" min="0" value="0" inputmode="numeric">
+                        <button class="btn-calc" type="button" data-target="uneditedPhotos" data-delta="1" aria-label="Więcej">+</button>
                     </div>
                 </div>
+
+                <div class="calc-bar" aria-hidden="true">
+                    <span class="seg seg-base"></span>
+                    <span class="seg seg-t1"></span>
+                    <span class="seg seg-t2"></span>
+                    <span class="seg seg-raw"></span>
+                </div>
+                <ul class="calc-legend" aria-hidden="true">
+                    <li><i class="seg-base"></i>Opłata bazowa</li>
+                    <li><i class="seg-t1"></i>Do 50 zdjęć</li>
+                    <li><i class="seg-t2"></i>Powyżej 50</li>
+                    <li><i class="seg-raw"></i>Bez obróbki</li>
+                </ul>
+
                 <div class="calc-result">
-                    Szacowana cena: <span id="totalPrice" class="highlight">80 PLN</span>
+                    Szacowana cena: <span id="totalPrice" class="highlight" aria-live="polite">80 PLN</span>
                 </div>
             </div>
-        </div>
-        <div class="disclaimer">
-            *Cennik dotyczy sesji portretowych oraz sesji produktowych. Ceny innych usług wyznaczane są indywidualnie
-            </br>
+        </section>
+
+        <p class="disclaimer" data-reveal>
+            *Cennik dotyczy sesji portretowych oraz sesji produktowych. Ceny innych usług wyznaczane są indywidualnie.
+            <br>
             **Liczona jest łączna liczba zdjęć wraz ze zdjęciami zawartymi w opłacie bazowej.
             W cenę wliczony jest koszt obróbki.
-
-        </div>
-    </div>
+        </p>
+    </main>
 
     <script>
-        function updatePhotos(id, delta) {
-            const input = document.getElementById(id);
-            let val = parseInt(input.value) || 0;
-            val += delta;
-            if (val < 0) val = 0;
-            input.value = val;
-            calculatePrice();
-        }
+        (() => {
+            const editedInput = document.getElementById('editedPhotos');
+            const uneditedInput = document.getElementById('uneditedPhotos');
+            const totalPrice = document.getElementById('totalPrice');
+            const segs = {
+                base: document.querySelector('.calc-bar .seg-base'),
+                t1: document.querySelector('.calc-bar .seg-t1'),
+                t2: document.querySelector('.calc-bar .seg-t2'),
+                raw: document.querySelector('.calc-bar .seg-raw')
+            };
 
-        function calculatePrice() {
-            const editedPhotosInput = document.getElementById('editedPhotos');
-            const uneditedPhotosInput = document.getElementById('uneditedPhotos');
+            const format = price => price.toFixed(2).replace('.00', '').replace('.', ',') + ' PLN';
 
-            // Unikanie ujemnych wartości
-            if (editedPhotosInput.value < 0) editedPhotosInput.value = 0;
-            if (uneditedPhotosInput.value < 0) uneditedPhotosInput.value = 0;
+            function breakdown() {
+                // Unikanie ujemnych wartości
+                if (editedInput.value < 0) editedInput.value = 0;
+                if (uneditedInput.value < 0) uneditedInput.value = 0;
 
-            const editedPhotos = parseInt(editedPhotosInput.value) || 0;
-            const uneditedPhotos = parseInt(uneditedPhotosInput.value) || 0;
+                const editedPhotos = parseInt(editedInput.value) || 0;
+                const uneditedPhotos = parseInt(uneditedInput.value) || 0;
 
-            let price = 80; // Opłata bazowa
+                const base = 80; // Opłata bazowa (w tym 10 zdjęć)
+                const t1 = editedPhotos > 10 ? Math.min(editedPhotos - 10, 40) * 1 : 0;
+                const t2 = editedPhotos > 50 ? (editedPhotos - 50) * 1.5 : 0;
+                const raw = uneditedPhotos * 0.5;
 
-            if (editedPhotos > 10) {
-                const additionalEdited = editedPhotos - 10;
-
-                const tier1Photos = Math.min(additionalEdited, 40);
-                price += tier1Photos * 1;
-
-                if (editedPhotos > 50) {
-                    const tier2Photos = editedPhotos - 50;
-                    price += tier2Photos * 1.5;
-                }
+                return { base, t1, t2, raw, total: base + t1 + t2 + raw };
             }
 
-            price += uneditedPhotos * 0.5;
+            // Płynne "przewijanie" ceny do nowej wartości
+            let shown = 80;
+            let tween = 0;
+            function animateTo(target) {
+                cancelAnimationFrame(tween);
+                totalPrice.classList.remove('pop');
+                void totalPrice.offsetWidth;
+                totalPrice.classList.add('pop');
+                const from = shown;
+                const t0 = performance.now();
+                const step = now => {
+                    const k = Math.min(1, (now - t0) / 450);
+                    shown = from + (target - from) * (1 - Math.pow(1 - k, 3));
+                    if (k < 1) {
+                        totalPrice.textContent = Math.round(shown) + ' PLN';
+                        tween = requestAnimationFrame(step);
+                    } else {
+                        shown = target;
+                        totalPrice.textContent = format(target);
+                    }
+                };
+                tween = requestAnimationFrame(step);
+            }
 
-            document.getElementById('totalPrice').innerText = price.toFixed(2).replace('.00', '').replace('.', ',') + ' PLN';
-        }
+            function calculatePrice() {
+                const b = breakdown();
+                Object.keys(segs).forEach(key => {
+                    segs[key].style.width = (b[key] / b.total * 100) + '%';
+                });
+                if (b.total !== shown) animateTo(b.total);
+            }
 
-        document.getElementById('editedPhotos').addEventListener('input', calculatePrice);
-        document.getElementById('uneditedPhotos').addEventListener('input', calculatePrice);
+            function updatePhotos(id, delta) {
+                const input = document.getElementById(id);
+                input.value = Math.max(0, (parseInt(input.value) || 0) + delta);
+                calculatePrice();
+            }
 
-        // Wywołanie na start w razie przeładowania strony
-        calculatePrice();
+            // Przytrzymanie przycisku +/- zmienia wartość seryjnie
+            document.querySelectorAll('.btn-calc').forEach(btn => {
+                const { target, delta } = btn.dataset;
+                let holdTimer = 0;
+                let repeatTimer = 0;
+                const stop = () => {
+                    clearTimeout(holdTimer);
+                    clearInterval(repeatTimer);
+                };
+                btn.addEventListener('pointerdown', e => {
+                    if (e.button !== 0) return;
+                    updatePhotos(target, +delta);
+                    holdTimer = setTimeout(() => {
+                        repeatTimer = setInterval(() => updatePhotos(target, +delta), 70);
+                    }, 400);
+                });
+                ['pointerup', 'pointerleave', 'pointercancel'].forEach(type => btn.addEventListener(type, stop));
+                // Obsługa klawiatury (Enter / spacja)
+                btn.addEventListener('click', e => {
+                    if (e.detail === 0) updatePhotos(target, +delta);
+                });
+            });
+
+            editedInput.addEventListener('input', calculatePrice);
+            uneditedInput.addEventListener('input', calculatePrice);
+
+            // Wywołanie na start w razie przeładowania strony
+            calculatePrice();
+        })();
     </script>
     <script src="nav.js"></script>
-    <script src="particles.js"></script>
+    <script src="fx.js"></script>
 </body>
+
+</html>

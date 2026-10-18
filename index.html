@@ -1,50 +1,71 @@
 <!DOCTYPE html>
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#04060d">
+    <meta name="description" content="MichjuX Photography – fotografia portretowa i produktowa.">
 
     <title>MichjuX Photography</title>
-    <link rel="stylesheet" href="style.css">
+    <script>document.documentElement.classList.add('js')</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <!-- Sfera tła reagująca na mysz z animowanymi cząsteczkami -->
-    <canvas id="particles-canvas"></canvas>
+<body data-theme="home">
+    <div class="curtain" aria-hidden="true"><span>MICHJUX</span></div>
+    <!-- Tło WebGL reagujące na mysz i dotyk -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <nav>
         <div class="logo">
-            <h4><a href="https://michjuxphotography.github.io">MICHJUX PHOTOGRAPHY</a></h4>
+            <h4><a href="index.html">MICHJUX PHOTOGRAPHY</a></h4>
         </div>
         <ul class="nav-links">
-            <!-- <li><a href="#">Strona główna</a></li> -->
-            <li><a href="https://michjuxphotography.github.io">Portfolio</a></li>
-            <li><a class="higlight" href="https://michjuxphotography.github.io/cennik">Cennik</a></li>
+            <li><a class="active" href="index.html" data-magnetic>Portfolio</a></li>
+            <li><a href="cennik.html" data-magnetic>Cennik</a></li>
         </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
+        <button class="burger" type="button" aria-label="Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
-    <div class="choice">
-        <a href="https://michjuxphotography.github.io/portrety" class="split-section port" id="port">
-            <div class="overlay"></div>
-            <h2 class="headerText">PORTRETY</h2>
-        </a>
-        <a href="https://michjuxphotography.github.io/produkty" class="split-section prod" id="prod">
-            <div class="overlay"></div>
-            <h2 class="headerText">PRODUKTY</h2>
-        </a>
-    </div>
+    <main class="choice">
+        <h1 class="sr-only">MichjuX Photography – portrety i produkty</h1>
 
+        <a href="portrety.html" class="split-section port" id="port">
+            <div class="split-bg" style="--img: url('images/portrety/DSC00850_wynik.webp'); --pos: 50% 8%"></div>
+            <div class="overlay"></div>
+            <div class="split-copy">
+                <span class="split-index">01 — Ludzie</span>
+                <h2 class="headerText flash" data-split>PORTRETY</h2>
+                <span class="split-cta">Zobacz galerię <i>→</i></span>
+            </div>
+        </a>
+
+        <a href="produkty.html" class="split-section prod" id="prod">
+            <div class="split-bg" style="--img: url('images/produkty/1.webp')"></div>
+            <div class="overlay"></div>
+            <div class="split-copy">
+                <span class="split-index">02 — Detale</span>
+                <h2 class="headerText glitch" data-text="PRODUKTY" data-split>PRODUKTY</h2>
+                <span class="split-cta">Zobacz galerię <i>→</i></span>
+            </div>
+        </a>
+
+        <div class="home-bar">
+            <span>Fotografia portretowa i produktowa</span>
+            <span>Wybierz kategorię</span>
+        </div>
+    </main>
 
     <script src="nav.js"></script>
-    <script src="gallery.js"></script>
-    <script src="particles.js"></script>
+    <script src="fx.js"></script>
 </body>
+
+</html>

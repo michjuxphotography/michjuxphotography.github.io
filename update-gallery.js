@@ -15,8 +15,10 @@ function getImagesFromDir(dirPath) {
     return fs.readdirSync(dirPath)
         .filter(file => {
             const ext = path.extname(file).toLowerCase();
-            return ['.jpg', '.jpeg', '.png', '.webp', '.gif'].includes(ext);
-        });
+            return ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif'].includes(ext);
+        })
+        // Kolejność jak w eksploratorze: 2.jpg przed 10.jpg
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
 
 const galleryData = {
